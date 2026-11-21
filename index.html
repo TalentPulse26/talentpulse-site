@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TalentPulse Intelligence | Daily Multi-ATS Hiring Feeds</title>
+  <meta name="description" content="Independent daily ATS job board monitoring across Greenhouse, Lever, Ashby, Workable, and SmartRecruiters for recruiters and boutique agencies." />
+  <link rel="icon" type="image/jpeg" href="logo.jpg" />
+  <style>
+    :root {
+      --bg: #13161b;
+      --bg-deep: #0e1115;
+      --surface: #1b1f26;
+      --surface-elevated: #232832;
+      --border: #2c3340;
+      --text: #f1f5f9;
+      --muted: #9aa5b5;
+      --cyan: #48f0df;
+      --blue: #22b4ff;
+      --accent-grad: linear-gradient(135deg, #48f0df 0%, #22b4ff 100%);
+      --glow: 0 0 24px rgba(34, 180, 255, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(72, 240, 223, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 180, 255, 0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(19, 22, 27, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 20;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      object-fit: cover;
+      border: 1px solid rgba(72, 240, 223, 0.28);
+      box-shadow: 0 0 14px rgba(34, 180, 255, 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-lg {
+      padding: 14px 32px;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-grad);
+      color: #06131a;
+      box-shadow: var(--glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 30px rgba(72, 240, 223, 0.35);
+    }
+
+    .btn-outline {
+      background: rgba(27, 31, 38, 0.85);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--blue);
+      background: var(--surface-elevated);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 84px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 460px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(34, 180, 255, 0.14) 0%, rgba(72, 240, 223, 0.05) 45%, transparent 72%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(34, 180, 255, 0.08);
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 22px;
+      border: 1px solid rgba(72, 240, 223, 0.28);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    h1 {
+      font-size: clamp(1.95rem, 4.3vw, 3.15rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      max-width: 780px;
+      margin: 0 auto 20px;
+    }
+
+    .gradient-text {
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 630px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    /* ATS Strip */
+    .ats-strip {
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(14, 17, 21, 0.72);
+      text-align: center;
+    }
+
+    .ats-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .ats-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px 30px;
+      font-weight: 600;
+      color: #dce4ee;
+      font-size: 0.95rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 68px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 42px;
+      font-size: 0.98rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #1e232b 0%, #171b22 100%);
+      border: 1px solid var(--border);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 26px;
+    }
+
+    .card-tag {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    /* Onboarding Steps */
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: rgba(34, 180, 255, 0.12);
+      border: 1px solid rgba(72, 240, 223, 0.35);
+      color: var(--cyan);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .pricing-box {
+      background: linear-gradient(180deg, #1f242d 0%, #161a20 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 34px 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-box.featured {
+      border-color: rgba(72, 240, 223, 0.55);
+      box-shadow: 0 0 32px rgba(34, 180, 255, 0.12);
+    }
+
+    .plan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .plan-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .plan-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(34, 180, 255, 0.12);
+      color: var(--blue);
+      border: 1px solid rgba(34, 180, 255, 0.35);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .price {
+      font-size: 2.55rem;
+      font-weight: 800;
+      margin: 12px 0 4px;
+      letter-spacing: -0.03em;
+    }
+
+    .price span {
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .plan-desc {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 22px;
+    }
+
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 7px 0;
+      font-size: 0.94rem;
+      color: #e2e8f0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .pricing-cta {
+      text-align: center;
+      margin-top: 34px;
+    }
+
+    .checkout-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-top: 14px;
+    }
+
+    /* Founder Note */
+    .founder-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #1d222a 0%, #161a20 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px 32px;
+    }
+
+    .founder-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .founder-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 14px;
+    }
+
+    .founder-sig {
+      font-size: 0.92rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .founder-sig a {
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    .founder-sig a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      background: var(--bg-deep);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-inner a:hover {
+      color: var(--cyan);
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+      .founder-card {
+        padding: 24px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#">
+        <img class="brand-logo" src="logo.jpg" alt="TalentPulse Intelligence logo" />
+        <span>TalentPulse Intelligence</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#what-you-get">What You Get</a>
+        <a href="#onboarding">How It Works</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+      <a class="btn btn-primary" href="mailto:disha@talentpulseintelligence.co?subject=Sample%20ATS%20Feed%20Request">Request Sample</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          Automated Daily ATS Tracking
+        </div>
+        <h1>Spot New Tech Requisitions <span class="gradient-text">Before They Hit Job Boards</span></h1>
+        <p>
+          An automated monitoring feed I run daily across your exact target company list—tracking live ATS openings, hiring surges, and closed roles directly into your inbox and Google Sheets.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:disha@talentpulseintelligence.co?subject=Free%20Sample%20ATS%20Feed%20Request">Request a Free Sample Feed</a>
+          <a class="btn btn-outline" href="#pricing">See Monthly Plans</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="ats-strip">
+      <div class="container">
+        <div class="ats-label">Direct Live Extraction Across 5 Major ATS Platforms</div>
+        <div class="ats-list">
+          <span>Greenhouse</span>
+          <span>Lever</span>
+          <span>Ashby</span>
+          <span>Workable</span>
+          <span>SmartRecruiters</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="what-you-get">
+      <div class="container">
+        <h2 class="section-title">What Arrives in Your Inbox Every Day</h2>
+        <p class="section-sub">No dashboard to log into and no manual scraping. Just structured requisition data ready to work from.</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-tag">3-Tab Tracking</div>
+            <h3>New, Active &amp; Recently Closed</h3>
+            <p>
+              Every daily file splits rolling 7-day <strong>NEW</strong> roles, full <strong>ACTIVE REQS</strong>, and <strong>RECENTLY CLOSED</strong> jobs so you know immediately what just opened and what was pulled.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-tag">Faster Sourcing</div>
+            <h3>Surge Flags &amp; Decision-Maker Links</h3>
+            <p>
+              Each row flags high-velocity hiring surges (20+ open roles) and includes pre-built LinkedIn Boolean strings plus 1-click X-Ray search links to find department hiring leads.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-tag">Desktop &amp; Mobile</div>
+            <h3>Excel Brief + Live Google Sheet</h3>
+            <p>
+              Get a concise daily summary and formatted <code>.xlsx</code> workbook by email, backed by your own dedicated Google Sheet mirror with clickable links on phone or desktop.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="onboarding" style="padding-top: 12px;">
+      <div class="container">
+        <h2 class="section-title">How Onboarding Works</h2>
+        <p class="section-sub">Setup takes under 2 minutes. Your custom pipeline goes live within 24 hours.</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="step-num">1</div>
+            <h3>Submit Target Companies</h3>
+            <p>
+              Fill out a 2-minute intake form with your target company list and the recipient email address(es) for your daily brief.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="step-num">2</div>
+            <h3>Select Plan &amp; Checkout</h3>
+            <p>
+              Right after submitting, you'll be redirected to Dodo Payments to choose the Individual or Team plan via card or Apple Pay. Cancel anytime.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="step-num">3</div>
+            <h3>Receive Daily Feeds</h3>
+            <p>
+              Once confirmed, I provision your dedicated Google Sheet mirror and activate your daily automated inbox briefs within 24 hours.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" style="padding-top: 12px;">
+      <div class="container">
+        <h2 class="section-title">Simple Monthly Pricing</h2>
+        <p class="section-sub">Custom-built around your target company list. Cancel anytime.</p>
+
+        <div class="pricing-grid">
+          <!-- Individual Plan -->
+          <div class="pricing-box">
+            <div class="plan-header">
+              <div class="plan-name">Individual Plan</div>
+            </div>
+            <div class="price">$149 <span>/ month</span></div>
+            <p class="plan-desc">For independent recruiters and solo agency founders monitoring a focused list of accounts.</p>
+            <ul class="checklist">
+              <li>1 email recipient (daily personalized brief)</li>
+              <li>Daily automated monitoring of your target companies</li>
+              <li>All 5 ATS platforms unified into one clean format</li>
+              <li>Rolling 7-day New &amp; Recently Closed tracking</li>
+              <li>Dedicated Google Sheet mirror + Excel attachment</li>
+              <li>Pre-indexed LinkedIn Boolean &amp; Hiring Lead links</li>
+            </ul>
+          </div>
+
+          <!-- Team Plan -->
+          <div class="pricing-box featured">
+            <div class="plan-header">
+              <div class="plan-name">Team Plan</div>
+              <span class="plan-badge">Up to 5 Recipients</span>
+            </div>
+            <div class="price">$299 <span>/ month</span></div>
+            <p class="plan-desc">For boutique recruiting agencies with multiple sourcers working the same target accounts.</p>
+            <ul class="checklist">
+              <li><strong>Up to 5 email recipients</strong> receiving daily briefs</li>
+              <li>Everything included in the Individual Plan</li>
+              <li>Shared live Google Sheet mirror for your recruiting desk</li>
+              <li>All 5 ATS platforms with Hiring Surge &amp; closed-job alerts</li>
+              <li>Pre-indexed LinkedIn Boolean &amp; Hiring Lead links</li>
+              <li>Direct updates whenever you swap target companies</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-cta">
+          <a class="btn btn-primary btn-lg" href="https://tally.so/r/ArKOVl" target="_blank" rel="noopener">Start Onboarding &amp; Choose Plan</a>
+          <p class="checkout-note">
+            Redirects automatically to Dodo Payments checkout where you select Individual ($149/mo) or Team ($299/mo) &bull; Cancel anytime
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top: 8px;">
+      <div class="container">
+        <div class="founder-card">
+          <h3>Run Directly by the Builder—No Middlemen</h3>
+          <p>
+            TalentPulse Intelligence isn't a bloated enterprise suite with ticket queues. I built and operate the automated scraping and delivery pipeline directly. When you want to add new target companies, adjust recipients, or request a sample for a specific niche, you email me directly and it gets handled.
+          </p>
+          <div class="founder-sig">
+            — Disha, Founder &nbsp;&bull;&nbsp; <a href="mailto:disha@talentpulseintelligence.co">disha@talentpulseintelligence.co</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>&copy; 2026 TalentPulse Intelligence</div>
+      <div>
+        Direct contact: <a href="mailto:disha@talentpulseintelligence.co">disha@talentpulseintelligence.co</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
